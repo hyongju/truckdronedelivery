@@ -1,4 +1,4 @@
-The codes in this repo were used to generate the results for our paper (add arxiv link of the paper)
+The codes in this repo were used to generate the results of our future paper
 
 
 
@@ -28,3 +28,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * "plot_google_map.m" by Zohar Bar-Yehuda (https://github.com/zoharby/plot_google_map) was used in some part of the code to display google map images
 * "lldistkm.m" by M. Sohrabinia (https://www.mathworks.com/matlabcentral/fileexchange/38812-latlon-distance?focused=5250973&tab=function) was used in some part of the code to convert the shortest distance between any two GPS locations to kilometer
 * "exchange2.m" by Jonas Lundgren (https://www.mathworks.com/matlabcentral/fileexchange/35178-tspsearch) was used to improve the solution of approximate TSP by 2-exchange heuristics
+* "gmaps_io.py" is a modified version of Jinsun Liu's python script (https://github.com/jinsunl/mpdtsp_MAP/tree/master/gmaps)
