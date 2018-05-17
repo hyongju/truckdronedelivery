@@ -270,4 +270,4 @@ totCst2 = sum(aggCst2) / length(aggCst2);
 timeEff = [totCst02 totCst01 totCst2 totCst];
 feulEff = [sum(tLength1),sum(tLength),sum(tLength2)+sum(wdL2),sum(tLength2)+sum(wdL)];
 
-save(sprintf('newresult3%d.mat',cntr))
+save(sprintf('region%d.mat',cntr))
