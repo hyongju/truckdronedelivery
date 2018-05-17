@@ -10,7 +10,7 @@ numRegions = 5;
 
 for pl1 = 1:numRegions
     % load data
-    load(sprintf('/results/newresult4%d.mat',pl1));
+    load(sprintf('/results/newresult%d.mat',pl1));
     
     % boundary    
     t1x = (ax - min(ax)) * (max(ax_) - min(ax_))*(((max(ay_)-min(ay_))/(max(ax_)-min(ax_)))/0.8162) + min(ax_);
