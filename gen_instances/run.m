@@ -1,9 +1,13 @@
 clear all;close all;clc
+% This code generates test instances {demands, warehouse locations} for 
+% large scale simulation over Michigan, USA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 load('data.mat');
 % index | population | ----
 
 numW = 5;   % number of warehouses
 
+% convert data to cell format
 for i = 1:size(data,1)
     cord = [];
     cord = [cord;data(i,3) data(i,4)];
@@ -12,12 +16,14 @@ for i = 1:size(data,1)
     cord = [cord;data(i,9) data(i,10)];
     convi{i} = cord;
 end
+% plot convex polygons of the data
 figure
 for i = 1:length(convi)
     K{i} = convhull(convi{i}(:,1),convi{i}(:,2));
     plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
 end
 
+% generate random samples
 numSamp = 5000;
 
 lb = 1;
@@ -52,8 +58,8 @@ for i = 1:length(convi)
     belong2{i} = [];
 end
 
+% find interior points (randomly generated) for each convex polygon
 for i = 1:size(rposScaled,1)
-    
     for j = 1:length(convi)
         polg = [convi{j}(K{j},1) convi{j}(K{j},2)];
         if inhull(rposScaled(i,:),polg)
@@ -83,14 +89,6 @@ for i = 1:length(locsamp)
     plot(rposScaled(try1,1),-rposScaled(try1,2),'b.'); hold on;
     augSamp = [augSamp;rposScaled(try1,:)];
 end
-
-% augSamp = [];
-% for i = 1:length(locsamp)
-%     augSamp = [augSamp;rposScaled(randsample(belong2{locsamp(i)},1),:)];
-% end
-
-% 
-%augSamp2 = [augSamp(:,1)-37 -augSamp(:,2)+997];
 
 augSamp2 = [augSamp(:,1) -augSamp(:,2)];
 
