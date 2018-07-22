@@ -4,93 +4,78 @@ load('data.mat');
 
 numW = 5;   % number of warehouses
 
-% 
-% for i = 1:size(data,1)
-%     cord = [];
-%     cord = [cord;data(i,3) data(i,4)];
-%     cord = [cord;data(i,5) data(i,6)];
-%     cord = [cord;data(i,7) data(i,8)];
-%     cord = [cord;data(i,9) data(i,10)];
-%     convi{i} = cord;
-% end
-% figure
-% for i = 1:length(convi)
-%     K{i} = convhull(convi{i}(:,1),convi{i}(:,2));
-%     %plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
-%     plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
-% end
-% 
-% 
-% 
-% numSamp = 5000;
-% 
-% lb = 1;
-% ub = data(1,2);
-% lB{1} = lb;
-% uB{1} = ub;
-% for i = 2:size(data,1)
-%     lb = ub + 1;
-%     ub = ub + data(i,2);
-%     lB{i} = lb;
-%     uB{i} = ub;
-% end
-% for j = 1:numSamp
-%     j
-%     samp = randsample(1:sum(data(:,2),1),1);
-%     whichP = 0;
-%     for i = 1:size(data,1)
-%         if (samp >= lB{i}) && (samp <= uB{i})
-%             whichP = i;
-%         end
-%     end
-%     locsamp(j) = whichP;
-% end
-% 
-% xrange1 = [min(min([data(:,3) data(:,5) data(:,7) data(:,9)])) max(max([data(:,3) data(:,5) data(:,7) data(:,9)]))];
-% yrange1 = [min(min([data(:,4) data(:,6) data(:,8) data(:,10)])) max(max([data(:,4) data(:,6) data(:,8) data(:,10)]))];
-% 
-% rpos = rand(100000,2);
-% rposScaled = [rpos(:,1) * xrange1(2) rpos(:,2) * yrange1(2)];
-% 
-% for i = 1:length(convi)
-%     belong2{i} = [];
-% end
-% 
-% for i = 1:size(rposScaled,1)
-%     
-%     for j = 1:length(convi)
-%         polg = [convi{j}(K{j},1) convi{j}(K{j},2)];
-%         if inhull(rposScaled(i,:),polg)
-%             belong2{j} = [belong2{j} i];
-%         end
-%     end
-% end
-% 
-% 
-% 
-% 
-% figure,
-% for i = 1:length(convi)
-%     K{i} = convhull(convi{i}(:,1),convi{i}(:,2));
-%     %plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
-%     plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
-%     for j = 1:length(belong2{i})
-%         plot(rposScaled(belong2{i}(j),1),-rposScaled(belong2{i}(j),2),'r.');hold on;
-%     end
-% end
+for i = 1:size(data,1)
+    cord = [];
+    cord = [cord;data(i,3) data(i,4)];
+    cord = [cord;data(i,5) data(i,6)];
+    cord = [cord;data(i,7) data(i,8)];
+    cord = [cord;data(i,9) data(i,10)];
+    convi{i} = cord;
+end
+figure
+for i = 1:length(convi)
+    K{i} = convhull(convi{i}(:,1),convi{i}(:,2));
+    plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
+end
 
+numSamp = 5000;
 
+lb = 1;
+ub = data(1,2);
+lB{1} = lb;
+uB{1} = ub;
+for i = 2:size(data,1)
+    lb = ub + 1;
+    ub = ub + data(i,2);
+    lB{i} = lb;
+    uB{i} = ub;
+end
+for j = 1:numSamp
+    j
+    samp = randsample(1:sum(data(:,2),1),1);
+    whichP = 0;
+    for i = 1:size(data,1)
+        if (samp >= lB{i}) && (samp <= uB{i})
+            whichP = i;
+        end
+    end
+    locsamp(j) = whichP;
+end
 
+xrange1 = [min(min([data(:,3) data(:,5) data(:,7) data(:,9)])) max(max([data(:,3) data(:,5) data(:,7) data(:,9)]))];
+yrange1 = [min(min([data(:,4) data(:,6) data(:,8) data(:,10)])) max(max([data(:,4) data(:,6) data(:,8) data(:,10)]))];
 
-% figure,
-% for i = 1:length(convi)
-%     K{i} = convhull(convi{i}(:,1),convi{i}(:,2));
-%     %plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
-%     plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
-% end
+rpos = rand(100000,2);
+rposScaled = [rpos(:,1) * xrange1(2) rpos(:,2) * yrange1(2)];
 
-% load data to save time...
-load('result1.mat');
+for i = 1:length(convi)
+    belong2{i} = [];
+end
+
+for i = 1:size(rposScaled,1)
+    
+    for j = 1:length(convi)
+        polg = [convi{j}(K{j},1) convi{j}(K{j},2)];
+        if inhull(rposScaled(i,:),polg)
+            belong2{j} = [belong2{j} i];
+        end
+    end
+end
+
+figure,
+for i = 1:length(convi)
+    K{i} = convhull(convi{i}(:,1),convi{i}(:,2));
+    plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
+    for j = 1:length(belong2{i})
+        plot(rposScaled(belong2{i}(j),1),-rposScaled(belong2{i}(j),2),'r.');hold on;
+    end
+end
+
+figure,
+for i = 1:length(convi)
+    K{i} = convhull(convi{i}(:,1),convi{i}(:,2));
+    plot(convi{i}(K{i},1),-convi{i}(K{i},2),'-');hold on;
+end
 
 augSamp = [];
 for i = 1:length(locsamp)
